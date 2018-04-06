@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.keran213539</groupId>
 	<artifactId>commonOkHttp</artifactId>
-	<version>0.0.1</version>
+	<version>0.2</version>
 	<packaging>jar</packaging>
 	<name>commonOkHttp</name>
 	<description>通用OkHttp简单封装</description>
