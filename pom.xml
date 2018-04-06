@@ -7,7 +7,27 @@
 	<packaging>jar</packaging>
 	<name>commonOkHttp</name>
 	<description>通用OkHttp简单封装</description>
+	<url>https://keran213539.github.io/CommonOkHttp/</url>
+	<licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>keran</name>
+            <email>213539@qq.com</email>
+        </developer>
+    </developers>
+    <scm>
+    	<connection>https://github.com/KeRan213539/CommonOkHttp.git</connection>
+    	<developerConnection>https://github.com/KeRan213539/CommonOkHttp.git</developerConnection>
+    	<url>https://github.com/KeRan213539/CommonOkHttp.git</url>
+    </scm>
 	<properties>
+		<argLine>-Dfile.encoding=UTF-8</argLine>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<skipJunitTest>true</skipJunitTest>
 		<project.build.jdkVersion>1.8</project.build.jdkVersion>
 	
@@ -25,7 +45,7 @@
 		<profile>
 			<id>bwin</id>
 			<properties>
-				<ly-bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</ly-bootclasspath>
+				<klw-bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</klw-bootclasspath>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -34,9 +54,79 @@
 		<profile>
 			<id>blinux</id>
 			<properties>
-				<ly-bootclasspath>${java.home}/lib/rt.jar:${java.home}/lib/jce.jar</ly-bootclasspath>
+				<klw-bootclasspath>${java.home}/lib/rt.jar:${java.home}/lib/jce.jar</klw-bootclasspath>
 			</properties>
 		</profile>
+		<profile>
+            <id>release</id>
+            <properties>
+				<klw-bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</klw-bootclasspath>
+			</properties>
+            <build>
+                <plugins>
+                    <!-- Source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <configuration>
+                        	<show>private</show>
+                        	<nohelp>true</nohelp>
+							<charset>UTF-8</charset>
+							<encoding>UTF-8</encoding>
+							<docencoding>UTF-8</docencoding>
+							<additionalparam>-Xdoclint:none</additionalparam>  <!-- TODO 临时解决不规范的javadoc生成报错,后面要规范化后把这行去掉 -->
+					   	</configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- GPG -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>oss-releases</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>oss-releases</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
 	</profiles>
 
 	<dependencies>
@@ -107,14 +197,6 @@
 
 	</dependencies>
 
-	<!-- build 自动发布到maven私服 -->
-	<distributionManagement>
-		<repository>
-			<id>lywl</id>
-			<url>http://172.16.18.199:8081/nexus/content/repositories/lywl/</url>
-		</repository>
-	</distributionManagement>  
-
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -128,7 +210,7 @@
 						<encoding>${project.build.sourceEncoding}</encoding>
 						<compilerArguments>
 							<verbose />
-							<bootclasspath>${ly-bootclasspath}</bootclasspath>
+							<bootclasspath>${klw-bootclasspath}</bootclasspath>
 						</compilerArguments>
 					</configuration>
 				</plugin>

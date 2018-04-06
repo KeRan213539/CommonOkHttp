@@ -1,7 +1,13 @@
 # CommonOkHttp--通用OkHttp简单封装
 一个用于Java应用(非安卓)的OkHttp的简单封装
 
-正在研究如何提交到maven中央仓库,提交后可以通过maven直接引入
+maven引入:
+
+	<dependency>
+		<groupId>com.github.keran213539</groupId>
+		<artifactId>commonOkHttp</artifactId>
+		<version>0.2</version>
+	</dependency>
 ## 背景
 OkHttp,现在很火的一个Apache httpClient的替代品,说替代可能不太合适,至少是同类型的库吧.
 最近想学习使用下,并找一个通用工具在新项目中使用(老项目使用httpClient).既然它现在这么火,别人写好的通用工具应该很好找(嗯,拿来主意),结果一番搜索后,确实找到不少,但都是Android的,安卓的组件封装进去了不少,还有下载,下载进度...服务端根本用不到啊...@%#$%#$ 好吧,找不到就自己写...
