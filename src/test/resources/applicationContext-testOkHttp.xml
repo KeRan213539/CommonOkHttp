@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	   xmlns:b="http://www.springframework.org/schema/beans" 
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="httpClientDefaultHttps" class="com.github.commonOkHttp.CommonOkHttpClientFactory" />
+	
+	<bean id="httpClientNotSafe" class="com.github.commonOkHttp.CommonOkHttpClientFactory">
+		<property name="unSafe" value="true" />
+	</bean>
+	
+	<bean id="httpClientCustomCertificate" class="com.github.commonOkHttp.CommonOkHttpClientFactory">
+		<property name="checkHostname" value="false" />
+		<property name="certificateFilePaths">
+			<list>
+				<value>classpath*:cers/jianshu.cer</value>
+			</list>
+		</property>
+	</bean>
+    
+   
+
+</beans>

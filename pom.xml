@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.commonOkHttp</groupId>
+	<artifactId>commonOkHttp</artifactId>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
+	<name>commonOkHttp</name>
+	<description>通用OkHttp简单封装</description>
+	<properties>
+		<skipJunitTest>true</skipJunitTest>
+		<project.build.jdkVersion>1.8</project.build.jdkVersion>
+	
+		<commons-io.version>2.5</commons-io.version>
+		<spring.version>5.0.4.RELEASE</spring.version>
+		<commons-lang.version>2.6</commons-lang.version>
+		<okhttp.version>3.10.0</okhttp.version>
+		<slf4j-log4j12.version>1.7.25</slf4j-log4j12.version>
+		<disruptor.version>3.4.1</disruptor.version>
+		<junit5.version>5.1.0</junit5.version>
+		<junit5-platform.version>1.1.0</junit5-platform.version>
+		<log4j-slf4j-impl.version>2.10.0</log4j-slf4j-impl.version>
+	</properties>
+	
+	<profiles>
+		<profile>
+			<id>bwin</id>
+			<properties>
+				<ly-bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</ly-bootclasspath>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>blinux</id>
+			<properties>
+				<ly-bootclasspath>${java.home}/lib/rt.jar:${java.home}/lib/jce.jar</ly-bootclasspath>
+			</properties>
+		</profile>
+	</profiles>
+
+	<dependencies>
+	
+		<!-- junit5 -->
+		<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter-api</artifactId>
+		    <version>${junit5.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-runner</artifactId>
+			<version>${junit5-platform.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-console-standalone</artifactId>
+			<version>${junit5-platform.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- slf4j 使用  log4j 2的实现 ,相关jar一起就引入了-->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-slf4j-impl</artifactId>
+		    <version>${log4j-slf4j-impl.version}</version>
+		</dependency>
+		<!-- log4j 2 的异步日志依赖包-->
+		<dependency>
+		    <groupId>com.lmax</groupId>
+		    <artifactId>disruptor</artifactId>
+		    <version>${disruptor.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+
+		<!-- commons-lang -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons-lang.version}</version>
+		</dependency>
+		
+
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>${okhttp.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<!-- build 自动发布到maven私服 -->
+	<distributionManagement>
+		<repository>
+			<id>lywl</id>
+			<url>http://172.16.18.199:8081/nexus/content/repositories/lywl/</url>
+		</repository>
+	</distributionManagement>  
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.1</version>
+					<configuration>
+						<source>${project.build.jdkVersion}</source>
+						<target>${project.build.jdkVersion}</target>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<compilerArguments>
+							<verbose />
+							<bootclasspath>${ly-bootclasspath}</bootclasspath>
+						</compilerArguments>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<skip>${skipJunitTest}</skip>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<sourceDirectory>src/main/java </sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<resources>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>${basedir}/src/test/resources</directory>
+			</testResource>
+		</testResources>
+	</build>
+
+</project>
