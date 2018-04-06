@@ -29,9 +29,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.util.ResourceUtils;
 
-import com.github.commonOkHttp.CommonOkHttpClient;
-import com.github.commonOkHttp.CommonOkHttpClientBuilder;
-import com.github.commonOkHttp.UploadFile;
+import com.github.keran213539.commonOkHttp.CommonOkHttpClient;
+import com.github.keran213539.commonOkHttp.CommonOkHttpClientBuilder;
+import com.github.keran213539.commonOkHttp.UploadFile;
 
 
 /**

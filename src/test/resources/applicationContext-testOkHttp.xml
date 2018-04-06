@@ -5,13 +5,13 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="httpClientDefaultHttps" class="com.github.commonOkHttp.CommonOkHttpClientFactory" />
+	<bean id="httpClientDefaultHttps" class="com.github.keran213539.commonOkHttp.CommonOkHttpClientFactory" />
 	
-	<bean id="httpClientNotSafe" class="com.github.commonOkHttp.CommonOkHttpClientFactory">
+	<bean id="httpClientNotSafe" class="com.github.keran213539.commonOkHttp.CommonOkHttpClientFactory">
 		<property name="unSafe" value="true" />
 	</bean>
 	
-	<bean id="httpClientCustomCertificate" class="com.github.commonOkHttp.CommonOkHttpClientFactory">
+	<bean id="httpClientCustomCertificate" class="com.github.keran213539.commonOkHttp.CommonOkHttpClientFactory">
 		<property name="checkHostname" value="false" />
 		<property name="certificateFilePaths">
 			<list>

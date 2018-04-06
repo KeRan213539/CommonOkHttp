@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.github.commonOkHttp;
+package com.github.keran213539.commonOkHttp;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.io.Resource;
 
-import com.github.commonOkHttp.utils.HttpsUtils;
+import com.github.keran213539.commonOkHttp.utils.HttpsUtils;
 
 
 /**

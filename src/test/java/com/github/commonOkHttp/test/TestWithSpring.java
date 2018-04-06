@@ -20,8 +20,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.github.commonOkHttp.CommonOkHttpClient;
-import com.github.commonOkHttp.UploadFile;
+import com.github.keran213539.commonOkHttp.CommonOkHttpClient;
+import com.github.keran213539.commonOkHttp.UploadFile;
 
 
 /**
