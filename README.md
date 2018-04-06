@@ -1,5 +1,6 @@
 # CommonOkHttp--通用OkHttp简单封装
 一个用于Java应用(非安卓)的OkHttp的简单封装
+
 正在研究如何提交到maven中央仓库,提交后可以通过maven直接引入
 ## 背景
 OkHttp,现在很火的一个Apache httpClient的替代品,说替代可能不太合适,至少是同类型的库吧.
