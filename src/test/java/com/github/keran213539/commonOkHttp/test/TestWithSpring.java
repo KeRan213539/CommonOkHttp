@@ -1,74 +1,60 @@
-package com.github.commonOkHttp.test;
+package com.github.keran213539.commonOkHttp.test;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.UrlResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.util.ResourceUtils;
 
 import com.github.keran213539.commonOkHttp.CommonOkHttpClient;
-import com.github.keran213539.commonOkHttp.CommonOkHttpClientBuilder;
 import com.github.keran213539.commonOkHttp.UploadFile;
 
 
 /**
  * @ClassName: CustomOkHttpClientTest
- * @Description: 通用OKHttp封装 JUnit5 测试-- 测试builder
+ * @Description: 通用OKHttp封装 JUnit5 测试
  * @author klw
  * @date 2018年4月4日 下午4:57:43
  */
 @RunWith(JUnitPlatform.class)
-public class TestWithBuilder {
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration({"classpath*:applicationContext-testOkHttp.xml"})
+public class TestWithSpring {
     
     /**
      * @Fields defaultHttps : 默认CA方式
      */
-    private static CommonOkHttpClient defaultHttps;
+    @Autowired
+    @Qualifier("httpClientDefaultHttps")
+    private CommonOkHttpClient defaultHttps;
     
     /**
      * @Fields httpClientNotSafe : 不安全
      */
-    private static CommonOkHttpClient httpClientNotSafe;
+    @Autowired
+    @Qualifier("httpClientNotSafe")
+    private CommonOkHttpClient httpClientNotSafe;
     
     /**
      * @Fields httpClientCustomCertificate : 自定义证书 + 不验证host name
      */
-    private static CommonOkHttpClient httpClientCustomCertificate;
-    
-    @BeforeAll
-    public static void init() throws FileNotFoundException {
-	// 默认CA方式
-	defaultHttps = new CommonOkHttpClientBuilder().build();
-	// 不安全
-	httpClientNotSafe = new CommonOkHttpClientBuilder().unSafe(true).build();
-	// 指定信任证书
-	List<URL> certificateFilePaths = new ArrayList<>();
-	certificateFilePaths.add(ResourceUtils.getURL("classpath:cers/jianshu.cer"));
-	httpClientCustomCertificate = new CommonOkHttpClientBuilder().checkHostname(false).certificateFilePaths(certificateFilePaths).build();
-    }
+    @Autowired
+    @Qualifier("httpClientCustomCertificate")
+    private CommonOkHttpClient httpClientCustomCertificate;
     
     /**
      * @Title: testDefaultHttps

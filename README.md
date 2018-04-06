@@ -8,7 +8,7 @@ OkHttp,现在很火的一个Apache httpClient的替代品,说替代可能不太�
 在这里向大家介绍一个不错的Android的http框架 [OkGo](https://github.com/jeasonlzy/okhttp-OkGo),我参考了其中的https工具还有其他部分代码
 ## 如何使用
 ### 通过spring工厂
-参考 com.github.commonOkHttp.test.TestWithSpring, 在spring 配制文件中增加:
+参考 com.github.keran213539.commonOkHttp.test.TestWithSpring, 在spring 配制文件中增加:
 
 
 	<bean id="httpClientDefaultHttps" class="com.github.commonOkHttp.CommonOkHttpClientFactory" />
@@ -28,7 +28,7 @@ OkHttp,现在很火的一个Apache httpClient的替代品,说替代可能不太�
 通过spirng获取对应的bean使用
 
 ### 通过Builder
-参考 com.github.commonOkHttp.test.TestWithBuilder
+参考 com.github.keran213539.commonOkHttp.test.TestWithBuilder
 
 	// 默认CA方式
 	CommonOkHttpClient defaultHttps = new CommonOkHttpClientBuilder().build();
