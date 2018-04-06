@@ -11,13 +11,13 @@ OkHttp,现在很火的一个Apache httpClient的替代品,说替代可能不太�
 参考 com.github.keran213539.commonOkHttp.test.TestWithSpring, 在spring 配制文件中增加:
 
 
-	<bean id="httpClientDefaultHttps" class="com.github.commonOkHttp.CommonOkHttpClientFactory" />
+	<bean id="httpClientDefaultHttps" class="com.github.keran213539.commonOkHttp.CommonOkHttpClientFactory" />
 	
-	<bean id="httpClientNotSafe" class="com.github.commonOkHttp.CommonOkHttpClientFactory">
+	<bean id="httpClientNotSafe" class="com.github.keran213539.commonOkHttp.CommonOkHttpClientFactory">
 		<property name="unSafe" value="true" />
 	</bean>
 	
-	<bean id="httpClientCustomCertificate" class="com.github.commonOkHttp.CommonOkHttpClientFactory">
+	<bean id="httpClientCustomCertificate" class="com.github.keran213539.commonOkHttp.CommonOkHttpClientFactory">
 		<property name="checkHostname" value="false" />
 		<property name="certificateFilePaths">
 			<list>
