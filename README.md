@@ -56,12 +56,16 @@ OkHttp,现在很火的一个Apache httpClient的替代品,说替代可能不太�
 
 #### String get(String url, IAsyncCallback callback)
 	发送 get 请求, 有 callback为异步,callback传null为同步;异步时返回null
+
 #### String post(String url, IAsyncCallback callback)
 	使用无参方式发送post请求, 有 callback为异步,callback传null为同步;异步时返回null
+
 #### String post(String url,String jsonStr, IAsyncCallback callback)
 	使用json方式发送post请求, 有 callback为异步,callback传null为同步;异步时返回null
+
 #### String post(String url, Map<String, String> prarm, IAsyncCallback callback)
 	使用传统参数方式发送post请求, 有 callback为异步,callback传null为同步;异步时返回null
+
 #### <T extends UploadFileBase> String post(String url, Map<String, String> prarm, List<T> files, IAsyncCallback callback)
 	文件上传(支持多文件)
  
