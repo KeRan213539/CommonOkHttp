@@ -24,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 import com.github.keran213539.commonOkHttp.callback.IAsyncCallback;
+import com.github.keran213539.commonOkHttp.callback.IAsyncCallback4Response;
 import com.github.keran213539.commonOkHttp.utils.HttpsUtils;
 
 import okhttp3.Call;
@@ -73,7 +74,25 @@ public final class CommonOkHttpClient {
      */
     public String get(String url, IAsyncCallback callback) {
 	Request request = new Request.Builder().get().url(url).build();
-	return sendRequest(request, callback);
+	return (String) sendRequest(request, false, callback, null);
+    }
+    
+    /**
+     * @Title: get
+     * @Description: 发送 get 请求并返回okhttp3.Response, 有 callback为异步,callback传null为同步;异步时返回null
+     * @param url
+     * @param callback
+     * @return
+     */
+    public Response get(String url, Map<String, String> headerExt, IAsyncCallback4Response callback) {
+	okhttp3.Request.Builder reqBuilder = new Request.Builder().get().url(url);
+	if(headerExt != null && headerExt.size() > 0) {
+	    headerExt.forEach((key, value) -> {
+		reqBuilder.addHeader(key, value);
+	    });
+	}
+	Request request = reqBuilder.build();
+	return (Response) sendRequest(request, true, null, callback);
     }
     
     /**
@@ -84,7 +103,7 @@ public final class CommonOkHttpClient {
      * @return
      */
     public String post(String url, IAsyncCallback callback) {
-	return doPost(url, null, null, callback);
+	return (String)doPost(url, null, null, callback, null, false, null);
     }
     
     /**
@@ -96,7 +115,19 @@ public final class CommonOkHttpClient {
      * @return
      */
     public String post(String url,String jsonStr, IAsyncCallback callback) {
-	return doPost(url, null, jsonStr, callback);
+	return (String)doPost(url, null, jsonStr, callback, null, false, null);
+    }
+    
+    /**
+     * @Title: post
+     * @Description: 使用json方式发送post请求并返回okhttp3.Response, 有 callback为异步,callback传null为同步;异步时返回null
+     * @param url
+     * @param jsonStr
+     * @param callback
+     * @return
+     */
+    public Response post(String url,String jsonStr, Map<String, String> headerExt, IAsyncCallback4Response callback) {
+	return (Response)doPost(url, null, jsonStr, null, callback, true, headerExt);
     }
     
     /**
@@ -108,7 +139,7 @@ public final class CommonOkHttpClient {
      * @return
      */
     public String post(String url, Map<String, String> prarm, IAsyncCallback callback) {
-	return doPost(url, prarm, null, callback);
+	return (String)doPost(url, prarm, null, callback, null, false, null);
     }
     
     /**
@@ -138,7 +169,7 @@ public final class CommonOkHttpClient {
                 .post(uploadBody)
                 .url(url).
                 build();
-	return sendRequest(request, callback);
+	return (String) sendRequest(request, false, callback, null);
     }
     
     /**
@@ -150,7 +181,7 @@ public final class CommonOkHttpClient {
      * @param callback
      * @return
      */
-    private String doPost(String url, Map<String, String> prarm, String jsonStr, IAsyncCallback callback) {
+    private Object doPost(String url, Map<String, String> prarm, String jsonStr, IAsyncCallback callback, IAsyncCallback4Response callback4Response, boolean isNeedResponse, Map<String, String> headerExt) {
 	RequestBody body = okhttp3.internal.Util.EMPTY_REQUEST;
 	if(StringUtils.isNotBlank(jsonStr)) {
 	    body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonStr);
@@ -159,26 +190,35 @@ public final class CommonOkHttpClient {
 	    prarm.forEach((k, v) -> builder.add(k, v));
 	    body = builder.build();
 	}
-	Request request = new Request.Builder()
-                .post(body)
-                .url(url).
-                build();
-	return sendRequest(request, callback);
+	okhttp3.Request.Builder reqBuilder = new Request.Builder().post(body).url(url);
+	if(headerExt != null && headerExt.size() > 0) {
+	    headerExt.forEach((key, value) -> {
+		reqBuilder.addHeader(key, value);
+	    });
+	}
+	Request request = reqBuilder.build();
+	return sendRequest(request, isNeedResponse, callback, callback4Response);
     }
     
     /**
      * @Title: sendRequest
      * @Description: 发送请求
      * @param request
-     * @param callback
+     * @param isNeedResponse 是否需要返回okhttp3.Response
+     * @param callback  不需要 okhttp3.Response 的 callback
+     * @param callback4Response
      * @return
      */
-    private String sendRequest(Request request, IAsyncCallback callback) {
+    private Object sendRequest(Request request, boolean isNeedResponse, IAsyncCallback callback, IAsyncCallback4Response callback4Response) {
 	if (callback == null) {
 	    // 同步
 	    try {
 		Response response = okHttpClient.newCall(request).execute();
-		return response.body().string();
+		if(isNeedResponse) {
+		    return response;
+		} else {
+		    return response.body().string();
+		}
 	    } catch (IOException e) {
 		e.printStackTrace();
 	    }
@@ -187,13 +227,21 @@ public final class CommonOkHttpClient {
 	    okHttpClient.newCall(request).enqueue(new Callback() {
 		@Override
 		public void onFailure(Call call, IOException e) {
-		    callback.doCallback(null);
+		    if(isNeedResponse) {
+			callback4Response.doCallback(null);
+		    } else {
+			callback.doCallback(null);
+		    }
 		}
 
 		@Override
 		public void onResponse(Call call, Response response) {
 		    try {
-			callback.doCallback(response.body().string());
+			if(isNeedResponse) {
+			    callback4Response.doCallback(response);
+			} else {
+			    callback.doCallback(response.body().string());
+			}
 		    } catch (IOException e) {
 			callback.doCallback(null);
 			// e.printStackTrace();
