@@ -4,11 +4,13 @@
 
 maven引入:
 
-	<dependency>
-		<groupId>com.github.keran213539</groupId>
-		<artifactId>commonOkHttp</artifactId>
-		<version>0.2</version>
-	</dependency>
+```xml
+<dependency>
+  <groupId>com.github.keran213539</groupId>
+  <artifactId>commonOkHttp</artifactId>
+  <version>0.2</version>
+</dependency>
+```
 
 ## 背景
 OkHttp,现在很火的一个Apache httpClient的替代品,说替代可能不太合适,至少是同类型的库吧.
