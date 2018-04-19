@@ -90,7 +90,7 @@ public class TestWithBuilder {
      */
     @Test
     public void testCustomHttps() {
-	System.out.println(httpClientCustomCertificate.get("https://www.jianshu.com/p/f5320b1e0287", null));  // 访问https-- 不能访问
+	System.out.println(httpClientCustomCertificate.get("https://www.jianshu.com/p/5dc612f15058", null));  // 访问https-- 不能访问
     }
     
     
