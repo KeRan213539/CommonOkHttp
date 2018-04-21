@@ -2,6 +2,9 @@
 
 一个用于Java应用(非安卓)的OkHttp的简单封装
 
+[主仓库-github](https://github.com/KeRan213539/CommonOkHttp)  
+[国内副本仓库-码云](https://gitee.com/213539/CommonOkHttp)
+
 maven引入:
 
 ```xml
