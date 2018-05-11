@@ -120,6 +120,18 @@ public final class CommonOkHttpClient {
     
     /**
      * @Title: post
+     * @Description: 使用xml方式发送post请求, 有 callback为异步,callback传null为同步;异步时返回null
+     * @param url
+     * @param callback
+     * @param xmlStr
+     * @return
+     */
+    public String post(String url, IAsyncCallback callback, String xmlStr) {
+	return (String) doPost(url, null, xmlStr, "application/xml", callback, null, false, null);
+    }
+    
+    /**
+     * @Title: post
      * @Description: 使用json方式发送post请求并返回okhttp3.Response, 有 callback为异步,callback传null为同步;异步时返回null
      * @param url
      * @param jsonStr
@@ -178,13 +190,34 @@ public final class CommonOkHttpClient {
      * @param url
      * @param prarm  传统参数方式
      * @param jsonStr  json参数方式
-     * @param callback
+     * @param callback  异步的回调方法,传null为同步
+     * @param isNeedResponse  是否需要Response对象
+     * @param callback4Response  传入Response对象的回调
+     * @param headerExt  加到请求的header里的参数
      * @return
      */
     private Object doPost(String url, Map<String, String> prarm, String jsonStr, IAsyncCallback callback, IAsyncCallback4Response callback4Response, boolean isNeedResponse, Map<String, String> headerExt) {
+	return doPost(url, prarm, jsonStr, "application/json", callback, callback4Response, isNeedResponse, headerExt);
+    }
+    
+    
+    /**
+     * @Title: doPost
+     * @Description: 执行post
+     * @param url
+     * @param prarm 传统参数方式
+     * @param postStr  需要post的字符串
+     * @param dataMediaType  需要post的字符串对应的格式: application/json; application/xml; application/text 等
+     * @param callback  异步的回调方法,传null为同步
+     * @param isNeedResponse  是否需要Response对象
+     * @param callback4Response  传入Response对象的回调
+     * @param headerExt  加到请求的header里的参数
+     * @return
+     */
+    private Object doPost(String url, Map<String, String> prarm, String postStr, String dataMediaType , IAsyncCallback callback, IAsyncCallback4Response callback4Response, boolean isNeedResponse, Map<String, String> headerExt) {
 	RequestBody body = okhttp3.internal.Util.EMPTY_REQUEST;
-	if(StringUtils.isNotBlank(jsonStr)) {
-	    body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonStr);
+	if(StringUtils.isNotBlank(postStr)) {
+	    body = RequestBody.create(MediaType.parse(dataMediaType + "; charset=utf-8"), postStr);
 	} else if(!CollectionUtils.isEmpty(prarm)) {
 	    Builder builder = new FormBody.Builder();
 	    prarm.forEach((k, v) -> builder.add(k, v));
