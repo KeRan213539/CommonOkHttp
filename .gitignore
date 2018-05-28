@@ -134,3 +134,6 @@ Icon
 ## hack for graddle wrapper
 !wrapper/*.jar
 !**/wrapper/*.jar
+
+# jrebel
+rebel.xml
