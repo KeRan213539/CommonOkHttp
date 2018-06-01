@@ -37,6 +37,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.internal.http.HttpMethod;
 
 /**
  * @ClassName: CommonOkHttpClient
@@ -116,6 +117,26 @@ public final class CommonOkHttpClient {
      */
     public String post(String url,String jsonStr, IAsyncCallback callback) {
 	return (String)doPost(url, null, jsonStr, callback, null, false, null);
+    }
+    
+    public String post(HttpMethod httpMethod, String url, String jsonStr, IAsyncCallback callback) {
+//	RequestBody body = okhttp3.internal.Util.EMPTY_REQUEST;
+//	if(StringUtils.isNotBlank(postStr)) {
+//	    body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), postStr);
+//	} else if(!CollectionUtils.isEmpty(prarm)) {
+//	    Builder builder = new FormBody.Builder();
+//	    prarm.forEach((k, v) -> builder.add(k, v));
+//	    body = builder.build();
+//	}
+//	okhttp3.Request.Builder reqBuilder = new Request.Builder().post(body).url(url);
+//	if(headerExt != null && headerExt.size() > 0) {
+//	    headerExt.forEach((key, value) -> {
+//		reqBuilder.addHeader(key, value);
+//	    });
+//	}
+//	Request request = reqBuilder.build();
+//	return sendRequest(request, isNeedResponse, callback, callback4Response);
+	return null;
     }
     
     /**
