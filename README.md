@@ -11,7 +11,7 @@ maven引入:
 <dependency>
   <groupId>com.github.keran213539</groupId>
   <artifactId>commonOkHttp</artifactId>
-  <version>0.2</version>
+  <version>0.3</version>
 </dependency>
 ```
 
