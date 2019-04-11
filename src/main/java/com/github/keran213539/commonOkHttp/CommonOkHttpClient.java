@@ -24,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 import com.github.keran213539.commonOkHttp.callback.IAsyncCallback;
+import com.github.keran213539.commonOkHttp.callback.IAsyncCallback4Download;
 import com.github.keran213539.commonOkHttp.callback.IAsyncCallback4Response;
 import com.github.keran213539.commonOkHttp.utils.HttpsUtils;
 
@@ -37,7 +38,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.internal.http.HttpMethod;
 
 /**
  * @ClassName: CommonOkHttpClient
@@ -119,26 +119,6 @@ public final class CommonOkHttpClient {
 	return (String)doPost(url, null, jsonStr, callback, null, false, null);
     }
     
-    public String post(HttpMethod httpMethod, String url, String jsonStr, IAsyncCallback callback) {
-//	RequestBody body = okhttp3.internal.Util.EMPTY_REQUEST;
-//	if(StringUtils.isNotBlank(postStr)) {
-//	    body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), postStr);
-//	} else if(!CollectionUtils.isEmpty(prarm)) {
-//	    Builder builder = new FormBody.Builder();
-//	    prarm.forEach((k, v) -> builder.add(k, v));
-//	    body = builder.build();
-//	}
-//	okhttp3.Request.Builder reqBuilder = new Request.Builder().post(body).url(url);
-//	if(headerExt != null && headerExt.size() > 0) {
-//	    headerExt.forEach((key, value) -> {
-//		reqBuilder.addHeader(key, value);
-//	    });
-//	}
-//	Request request = reqBuilder.build();
-//	return sendRequest(request, isNeedResponse, callback, callback4Response);
-	return null;
-    }
-    
     /**
      * @Title: post
      * @Description: 使用xml方式发送post请求, 有 callback为异步,callback传null为同步;异步时返回null
@@ -177,7 +157,7 @@ public final class CommonOkHttpClient {
     
     /**
      * @Title: post
-     * @Description: 文件上传(支持多文件)
+     * @Description: 文件上传(支持多文件), 有 callback为异步,callback传null为同步;异步时返回null
      * @param url
      * @param prarm
      * @param files
@@ -264,7 +244,7 @@ public final class CommonOkHttpClient {
      * @return
      */
     private Object sendRequest(Request request, boolean isNeedResponse, IAsyncCallback callback, IAsyncCallback4Response callback4Response) {
-	if (callback == null) {
+	if (callback == null && callback4Response == null) {
 	    // 同步
 	    try {
 		Response response = okHttpClient.newCall(request).execute();
@@ -304,6 +284,117 @@ public final class CommonOkHttpClient {
 	    });
 	}
 	return null;
+    }
+    
+    /**
+     * @Title: download
+     * @author klw
+     * @Description: 下载文件, 有 callback为异步,callback传null为同步;异步时返回null
+     * @param url  下载地址
+     * @param isNeedResponse  是否需要返回okhttp3.Response
+     * @param headerExt  扩展的请求头信息
+     * @param callback  返回byte[]的回调(有callback为异步,没有为同步)
+     * @param callback4Response  返回okhttp3.Response 的回调
+     * @return
+     */
+    private Object download(String url, boolean isNeedResponse, Map<String, String> headerExt, IAsyncCallback4Download callback, IAsyncCallback4Response callback4Response) {
+	okhttp3.Request.Builder reqBuilder = new Request.Builder().get().url(url);
+	if(headerExt != null && headerExt.size() > 0) {
+	    headerExt.forEach((key, value) -> {
+		reqBuilder.addHeader(key, value);
+	    });
+	}
+	Request request = reqBuilder.build();
+	
+	if (callback == null && callback4Response == null) {
+	    // 同步
+	    try {
+		Response response = okHttpClient.newCall(request).execute();
+		if(isNeedResponse) {
+		    return response;
+		} else {
+		    return response.body().bytes();
+		}
+	    } catch (IOException e) {
+		e.printStackTrace();
+	    }
+	} else {
+	    // 异步
+	    okHttpClient.newCall(request).enqueue(new Callback() {
+		@Override
+		public void onFailure(Call call, IOException e) {
+		    if(isNeedResponse) {
+			callback4Response.doCallback(null);
+		    } else {
+			callback.doCallback(null);
+		    }
+		}
+
+		@Override
+		public void onResponse(Call call, Response response) {
+		    try {
+			if(isNeedResponse) {
+			    callback4Response.doCallback(response);
+			} else {
+			    callback.doCallback(response.body().bytes());
+			}
+		    } catch (IOException e) {
+			callback.doCallback(null);
+		    }
+		}
+	    });
+	}
+	return null;
+    }
+    
+    /**
+     * @Title: download
+     * @author klw
+     * @Description: 下载文件并返回文件 byte[], 有 callback为异步,callback传null为同步;异步时返回null
+     * @param url  下载地址
+     * @param headerExt  扩展的请求头信息
+     * @param callback  返回byte[]的回调(有callback为异步,没有为同步)
+     * @return
+     */
+    public byte[] download(String url, Map<String, String> headerExt, IAsyncCallback4Download callback) {
+	return (byte[]) download(url, false, headerExt, callback, null);
+    }
+    
+    /**
+     * @Title: download
+     * @author klw
+     * @Description: 下载文件并返回okhttp3.Response(可以通过response获取文件类型,文件大小, InputStream等, 有 callback为异步,callback传null为同步;异步时返回null
+     * @param url  下载地址
+     * @param headerExt  扩展的请求头信息
+     * @param callback  返回okhttp3.Response 的回调
+     * @return
+     */
+    public Response download(Map<String, String> headerExt, IAsyncCallback4Response callback, String url) {
+	return (Response) download(url, true, headerExt, null, callback);
+    }
+    
+    /**
+     * @Title: download
+     * @author klw
+     * @Description: 下载文件并返回文件 byte[], 有 callback为异步,callback传null为同步;异步时返回null
+     * @param url  下载地址
+     * @param callback  返回byte[]的回调(有callback为异步,没有为同步)
+     * @return
+     */
+    public byte[] download(String url, IAsyncCallback4Download callback) {
+	return (byte[]) download(url, false, null, callback, null);
+    }
+    
+    /**
+     * @Title: download
+     * @author klw
+     * @Description: 下载文件并返回okhttp3.Response(可以通过response获取文件类型,文件大小, InputStream等, 有 callback为异步,callback传null为同步;异步时返回null
+     * @param url  下载地址
+     * @param callback  返回okhttp3.Response 的回调
+     * @return
+     */
+    public Response download(IAsyncCallback4Response callback, String url) {
+	return (Response) download(url, true, null, null, callback);
     }
     
 }

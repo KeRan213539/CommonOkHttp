@@ -6,6 +6,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -70,11 +71,30 @@ public class TestWithBuilder {
 	httpClientCustomCertificate = new CommonOkHttpClientBuilder().checkHostname(false).certificateFilePaths(certificateFilePaths).build();
     }
     
+    @Test
+    public void testDownload() {
+	String imageUrl = "http://f.hiphotos.baidu.com/image/pic/item/71cf3bc79f3df8dcfcea3de8c311728b461028f7.jpg";
+	System.out.println(defaultHttps.download(imageUrl, null).length);
+	System.out.println(defaultHttps.download(null, imageUrl).body().contentLength());
+	System.out.println("==============上面是同步,下面是异步============");
+	defaultHttps.download(imageUrl, fileBytes -> {
+	    System.out.println(fileBytes.length);
+	});
+	
+	defaultHttps.download(fileBytes -> {
+	    try {
+		System.out.println(fileBytes.body().bytes().length);
+	    } catch (IOException e) {
+		e.printStackTrace();
+	    }
+	}, imageUrl);
+    }
+    
     /**
      * @Title: testDefaultHttps
      * @Description: 测试默认https(使用CA证书)
      */
-    @Test
+//    @Test
     public void testDefaultHttps() {
 	System.out.println(defaultHttps.get("https://www.jianshu.com/p/f5320b1e0287", null));  // 访问https
 	System.out.println(defaultHttps.post("https://www.baidu.com", null));  // 访问https
@@ -88,7 +108,7 @@ public class TestWithBuilder {
      * @Title: testCustomHttps
      * @Description: 信任证书
      */
-    @Test
+//    @Test
     public void testCustomHttps() {
 	System.out.println(httpClientCustomCertificate.get("https://www.jianshu.com/p/5dc612f15058", null));  // 访问https-- 不能访问
     }
@@ -176,7 +196,7 @@ public class TestWithBuilder {
      * @Title: testNotSafe
      * @Description: 测试不安全方式访问自签证书
      */
-    @Test
+//    @Test
     public void testNotSafe() {
 	// TODO 由于没有在外网找到合适的测试环境,所以代码已删除,实际已测过
     }
@@ -187,7 +207,7 @@ public class TestWithBuilder {
      * @Title: afterAll4Async
      * @Description: 测试异步时使用,阻塞主线程
      */
-//    @AfterAll
+    @AfterAll
     public static void afterAll4Async() {
 	synchronized (TestWithSpring.class) {
 	    while (true) {

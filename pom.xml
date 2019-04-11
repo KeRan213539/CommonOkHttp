@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.keran213539</groupId>
 	<artifactId>commonOkHttp</artifactId>
-	<version>0.3</version>
+	<version>0.4</version>
 	<packaging>jar</packaging>
 	<name>commonOkHttp</name>
 	<description>通用OkHttp简单封装</description>
@@ -31,9 +31,9 @@
 		<skipJunitTest>true</skipJunitTest>
 		<project.build.jdkVersion>1.8</project.build.jdkVersion>
 	
-		<spring.version>5.0.4.RELEASE</spring.version>
+		<spring.version>5.1.6.RELEASE</spring.version>
 		<commons-lang.version>2.6</commons-lang.version>
-		<okhttp.version>3.10.0</okhttp.version>
+		<okhttp.version>3.14.1</okhttp.version>
 		<slf4j-log4j12.version>1.7.25</slf4j-log4j12.version>
 		<disruptor.version>3.4.1</disruptor.version>
 		<junit5.version>5.1.0</junit5.version>
