@@ -167,7 +167,9 @@ public final class CommonOkHttpClient {
     public <T extends UploadFileBase> String post(String url, Map<String, String> prarm, List<T> files, IAsyncCallback callback) {
 	okhttp3.MultipartBody.Builder builder = new MultipartBody.Builder();
 	builder.setType(MultipartBody.FORM);
-	prarm.forEach((k, v) -> builder.addFormDataPart(k, v));
+	if(prarm != null) {
+	    prarm.forEach((k, v) -> builder.addFormDataPart(k, v));
+	}
 	files.stream().forEach((file) -> {
 	    if(file instanceof UploadFile) {
 		UploadFile fileTmp = (UploadFile)file;
