@@ -5,6 +5,31 @@
 [主仓库-github](https://github.com/KeRan213539/CommonOkHttp)  
 [国内副本仓库-码云](https://gitee.com/213539/CommonOkHttp)
 
+
+## 背景
+
+OkHttp,现在很火的一个Apache httpClient的替代品,说替代可能不太合适,至少是同类型的库吧.
+最近想学习使用下,并找一个通用工具在新项目中使用(老项目使用httpClient).既然它现在这么火,别人写好的通用工具应该很好找(嗯,拿来主意),结果一番搜索后,确实找到不少,但都是Android的,安卓的组件封装进去了不少,还有下载,下载进度...服务端根本用不到啊...@%#$%#$ 好吧,找不到就自己写...
+在这里向大家介绍一个不错的Android的http框架 [OkGo](https://github.com/jeasonlzy/okhttp-OkGo),我参考了其中的https工具还有其他部分代码
+
+## 如何使用
+
+### spring boot2:
+
+maven引入:
+
+```
+<dependency>
+	<groupId>com.github.keran213539</groupId>
+	<artifactId>commonOkHttp-spring-boot-starter</artifactId>
+	<version>0.4.1</version>
+</dependency>
+```
+
+通过spirng获取 com.ejkj.faceRecognition.FaceRecognitionClient并使用
+
+### 通过spring工厂
+
 maven引入:
 
 ```xml
@@ -14,15 +39,6 @@ maven引入:
   <version>0.4.1</version>
 </dependency>
 ```
-
-## 背景
-OkHttp,现在很火的一个Apache httpClient的替代品,说替代可能不太合适,至少是同类型的库吧.
-最近想学习使用下,并找一个通用工具在新项目中使用(老项目使用httpClient).既然它现在这么火,别人写好的通用工具应该很好找(嗯,拿来主意),结果一番搜索后,确实找到不少,但都是Android的,安卓的组件封装进去了不少,还有下载,下载进度...服务端根本用不到啊...@%#$%#$ 好吧,找不到就自己写...
-在这里向大家介绍一个不错的Android的http框架 [OkGo](https://github.com/jeasonlzy/okhttp-OkGo),我参考了其中的https工具还有其他部分代码
-
-## 如何使用
-
-### 通过spring工厂
 
 参考 com.github.keran213539.commonOkHttp.test.TestWithSpring, 在spring 配制文件中增加:
 
@@ -42,9 +58,18 @@ OkHttp,现在很火的一个Apache httpClient的替代品,说替代可能不太�
 		</property>
 	</bean>
 
-通过spirng获取对应的bean使用
+通过spirng获取com.ejkj.faceRecognition.FaceRecognitionClient并使用
 
 ### 通过Builder
+maven引入:
+
+```xml
+<dependency>
+  <groupId>com.github.keran213539</groupId>
+  <artifactId>commonOkHttp</artifactId>
+  <version>0.4.1</version>
+</dependency>
+```
 
 参考 com.github.keran213539.commonOkHttp.test.TestWithBuilder
 

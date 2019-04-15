@@ -43,21 +43,6 @@
 
 	<profiles>
 		<profile>
-			<id>bwin</id>
-			<properties>
-				<klw-bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</klw-bootclasspath>
-			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
-		<profile>
-			<id>blinux</id>
-			<properties>
-				<klw-bootclasspath>${java.home}/lib/rt.jar:${java.home}/lib/jce.jar</klw-bootclasspath>
-			</properties>
-		</profile>
-		<profile>
 			<id>release</id>
 			<properties>
 				<klw-bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</klw-bootclasspath>
