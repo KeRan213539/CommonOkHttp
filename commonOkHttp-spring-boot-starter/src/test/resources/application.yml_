@@ -1,0 +1,3 @@
+common-okhttp:
+  certificateFilePaths:
+  - classpath:cers/jianshu.cer

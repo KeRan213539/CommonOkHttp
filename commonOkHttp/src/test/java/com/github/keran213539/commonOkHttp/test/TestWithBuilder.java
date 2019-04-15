@@ -209,10 +209,10 @@ public class TestWithBuilder {
      */
     @AfterAll
     public static void afterAll4Async() {
-	synchronized (TestWithSpring.class) {
+	synchronized (TestWithBuilder.class) {
 	    while (true) {
 		try {
-		    TestWithSpring.class.wait();
+		    TestWithBuilder.class.wait();
 		} catch (Throwable e) {
 		    e.printStackTrace();
 		}

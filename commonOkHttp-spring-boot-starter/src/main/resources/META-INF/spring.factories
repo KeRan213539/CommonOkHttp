@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.keran213539.commonOkHttp.starter.CommonOkHttpSpringBootCfg
