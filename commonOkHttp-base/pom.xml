@@ -224,7 +224,6 @@
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 		</dependency>
-		<!-- sdfsdfsdf -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
@@ -244,9 +243,6 @@
 			<groupId>org.junit.vintage</groupId>
 			<artifactId>junit-vintage-engine</artifactId>
 		</dependency>
-
-
-		<!-- sdfasdfsdfds -->
 
 		<dependency>
 			<groupId>org.junit.platform</groupId>
