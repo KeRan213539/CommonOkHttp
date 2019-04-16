@@ -129,66 +129,77 @@
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-api</artifactId>
 				<version>${junit5.version}</version>
+                <scope>test</scope>
 			</dependency>
 			
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-engine</artifactId>
 				<version>${junit5.version}</version>
+                <scope>test</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-migrationsupport</artifactId>
 				<version>${junit5.version}</version>
+                <scope>test</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-params</artifactId>
 				<version>${junit5.version}</version>
+                <scope>test</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.junit.vintage</groupId>
 				<artifactId>junit-vintage-engine</artifactId>
 				<version>${junit5.version}</version>
+                <scope>test</scope>
 			</dependency>
 
             <dependency>
                 <groupId>org.junit.platform</groupId>
                 <artifactId>junit-platform-launcher</artifactId>
                 <version>${junit5-platform.version}</version>
+                <scope>test</scope>
             </dependency>
             
             <dependency>
                 <groupId>org.junit.platform</groupId>
                 <artifactId>junit-platform-commons</artifactId>
                 <version>${junit5-platform.version}</version>
+                <scope>test</scope>
             </dependency>
             
             <dependency>
                 <groupId>org.junit.platform</groupId>
                 <artifactId>junit-platform-engine</artifactId>
                 <version>${junit5-platform.version}</version>
+                <scope>test</scope>
             </dependency>
             
             <dependency>
                 <groupId>org.junit.platform</groupId>
                 <artifactId>junit-platform-suite-api</artifactId>
                 <version>${junit5-platform.version}</version>
+                <scope>test</scope>
             </dependency>
 
 			<dependency>
 				<groupId>org.junit.platform</groupId>
 				<artifactId>junit-platform-runner</artifactId>
 				<version>${junit5-platform.version}</version>
+                <scope>test</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.junit.platform</groupId>
 				<artifactId>junit-platform-console-standalone</artifactId>
 				<version>${junit5-platform.version}</version>
+				<scope>test</scope>
 			</dependency>
 
 			<!-- log4j 2 的异步日志依赖包 -->
