@@ -5,8 +5,6 @@ import java.io.IOException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.runner.JUnitPlatform;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -19,7 +17,6 @@ import com.github.keran213539.commonOkHttp.CommonOkHttpClient;
  * @author klw
  * @date 2019年4月14日 下午4:32:44
  */
-@RunWith(JUnitPlatform.class)
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes= {JUnit5TestApplication.class})
 public class SpringBootStarterTest {

@@ -1,7 +1,10 @@
 package com.github.keran213539.commonOkHttp.test;
 
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.logging.LoggingSystem;
+
 
 /**
  * @ClassName: JUnit5TestApplication
@@ -13,7 +16,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class JUnit5TestApplication {
 
     public static void main(String[] args) {
-	SpringApplication.run(JUnit5TestApplication.class, args);
+	System.setProperty("org.springframework.boot.logging.LoggingSystem", LoggingSystem.NONE);  // 彻底关闭 spring boot 自带的 LoggingSystem
+	new SpringApplicationBuilder(JUnit5TestApplication.class)
+        .web(WebApplicationType.NONE) // 非 Web 应用
+        .run(args);
     }
     
 }
