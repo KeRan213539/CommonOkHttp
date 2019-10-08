@@ -26,7 +26,7 @@ maven引入:
 </dependency>
 ```
 
-通过spirng获取 com.ejkj.faceRecognition.FaceRecognitionClient并使用
+通过spirng获取 com.github.keran213539.commonOkHttp.CommonOkHttpClient并使用
 
 ### 通过spring工厂
 
