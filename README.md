@@ -75,7 +75,7 @@ maven引入:
 
 	// 默认CA方式
 	CommonOkHttpClient defaultHttps = new CommonOkHttpClientBuilder().build();
-	// 不安全
+	// 不安全(忽略证书验证)
 	CommonOkHttpClient httpClientNotSafe = new CommonOkHttpClientBuilder().unSafe(true).build();
 	// 指定信任证书
 	List<URL> certificateFilePaths = new ArrayList<>();
