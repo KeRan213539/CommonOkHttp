@@ -26,7 +26,7 @@ maven引入:
 </dependency>
 ```
 
-通过spirng获取 com.ejkj.faceRecognition.FaceRecognitionClient并使用
+通过spirng获取 com.github.keran213539.commonOkHttp.CommonOkHttpClient 并使用
 
 ### 通过spring工厂
 
@@ -58,7 +58,7 @@ maven引入:
 		</property>
 	</bean>
 
-通过spirng获取com.ejkj.faceRecognition.FaceRecognitionClient并使用
+通过spirng获取 com.github.keran213539.commonOkHttp.CommonOkHttpClient 并使用
 
 ### 通过Builder
 maven引入:
@@ -75,7 +75,7 @@ maven引入:
 
 	// 默认CA方式
 	CommonOkHttpClient defaultHttps = new CommonOkHttpClientBuilder().build();
-	// 不安全
+	// 不安全(忽略证书验证)
 	CommonOkHttpClient httpClientNotSafe = new CommonOkHttpClientBuilder().unSafe(true).build();
 	// 指定信任证书
 	List<URL> certificateFilePaths = new ArrayList<>();
