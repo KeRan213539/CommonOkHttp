@@ -19,7 +19,7 @@
         <skipJunitTest>true</skipJunitTest>
         <project.build.jdkVersion>1.8</project.build.jdkVersion>
         
-		<commonOkHttp-base.version>0.4.2</commonOkHttp-base.version>
+		<commonOkHttp-base.version>0.4.3-SNAPSHOT</commonOkHttp-base.version>
 	</properties>
 
 	<dependencyManagement>

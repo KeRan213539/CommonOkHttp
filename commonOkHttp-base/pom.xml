@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.keran213539</groupId>
     <artifactId>commonOkHttp-base</artifactId>
-    <version>0.4.2</version>
+    <version>0.4.3-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>commonOkHttp-base</name>
     <description>commonOkHttp-base项目,主要用于控制各个jar包的版本号</description>
