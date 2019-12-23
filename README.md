@@ -26,7 +26,8 @@ maven引入:
 </dependency>
 ```
 
-通过spirng获取 com.github.keran213539.commonOkHttp.CommonOkHttpClient并使用
+通过spirng获取 com.github.keran213539.commonOkHttp.CommonOkHttpClient 并使用
+
 
 ### 通过spring工厂
 
@@ -36,7 +37,7 @@ maven引入:
 <dependency>
   <groupId>com.github.keran213539</groupId>
   <artifactId>commonOkHttp</artifactId>
-  <version>0.4.1</version>
+  <version>0.4.2</version>
 </dependency>
 ```
 
@@ -58,7 +59,7 @@ maven引入:
 		</property>
 	</bean>
 
-通过spirng获取com.ejkj.faceRecognition.FaceRecognitionClient并使用
+通过spirng获取 com.github.keran213539.commonOkHttp.CommonOkHttpClient 并使用
 
 ### 通过Builder
 maven引入:
@@ -67,7 +68,7 @@ maven引入:
 <dependency>
   <groupId>com.github.keran213539</groupId>
   <artifactId>commonOkHttp</artifactId>
-  <version>0.4.1</version>
+  <version>0.4.2</version>
 </dependency>
 ```
 
@@ -147,8 +148,23 @@ maven引入:
 ```
 下载文件并返回okhttp3.Response(可以通过response获取文件类型,文件大小, InputStream等, 有 callback为异步,callback传null为同步;异步时返回null
 ```
-
-
+#### Object doPost(String url, Map<String, String> prarm, String postStr, String dataMediaType, IAsyncCallback callback, IAsyncCallback4Response callback4Response, boolean isNeedResponse, Map<String, String> headerExt) {
+```
+执行post, 之前是内部调用的方法,现在放开
+/**
+* @param url
+* @param prarm             传统参数方式
+* @param postStr           需要post的字符串
+* @param dataMediaType     需要post的字符串对应的格式: application/json; application/xml; application/text 等
+* @param callback          异步的回调方法,传null为同步
+* @param isNeedResponse    是否需要Response对象
+* @param callback4Response 传入Response对象的回调
+* @param headerExt         加到请求的header里的参数
+* @return
+* @Title: doPost
+* @Description: 执行post
+*/
+```
 
 ## 关于测试
 
